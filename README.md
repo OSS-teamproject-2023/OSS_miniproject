@@ -4,7 +4,6 @@
 <p align="center"><img src="https://cdn.pixabay.com/photo/2016/11/03/11/57/accountant-1794122_1280.png" height="300px" width="300px"></p>
 
  ### ❤️ Welcome to 가계부 ❤️
- 
  <img src="https://img.shields.io/badge/C-00CCFF?style=flat-square&logo=C&logoColor="white"/>
  <img src="https://img.shields.io/badge/VisualStudioCode-0000FF?style=flat-square&logo=VisualStudioCode&logoColor="black"/>
  <img src="https://img.shields.io/badge/Markdown-000000?style=flat-square&logo=Markdown&logoColor="white"/>
