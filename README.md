@@ -12,21 +12,44 @@
 </div>
     
 
-# 🧊 miniProject
+# ❤️ miniProject
 
 <div align="center"> 
 
-<img src="https://user-images.githubusercontent.com/98035984/167238404-7c0a4810-d7f4-4899-9d73-b195c32b7c1d.png" height="300px" width="300px">
+<img src="https://cdn.pixabay.com/photo/2019/05/19/19/33/calculator-4214954_1280.jpg" height="300px" width="300px">
  
-  ## *Dessert_KIOSK*  
+  ## *가계부*  
 </div>
   
-## 📟 CUBE KIOSK 주제
- - 카페 메뉴 주문을 관리하는 프로그램 
+## 🙈 miniProject 주제
+ - 가계부를 작성해서 용돈 관리 및 지출 금액 관리를 도와 줄 수 있는 프로그램
 
 <br/>
 
-## 📟 CUBE KIOSK에 대한 소개
-  - 바쁜 주문을 간편하게 만들어주는 CUBE KIOSK 입니다.
-  - 간단한 번호 입력을 통하여 주문서를 자동으로 정리해줍니다
-  - 관리자가 직접 관리하지 않아도 오늘의 추천 메뉴를 자동으로 정해주는 키오스크 입니다.
+## 🙈 가계부 소개
+  - 간단한 입력으로 어떤 카테고리에서 돈을 지출하는지 쉽게 보여줄 수 있는 프로그램 입니다.
+  - 금액별로 어떤 지출이 가장 많았는지 부터 순서대로 보여줄 수 있는 프로그램 입니다.
+  - 월별 지출 관련해서 상세하게 보여주는 프로그램 입니다.
+  - 해당 년도의 총 지출과 수입을 계산해주는 프로그램 입니다.
+  
+  
+## 🙈 개발환경 및 언어
+  - git 
+  - vs code
+  - c
+
+<br/>
+
+## 🙈 팀소개 및 팀원이 맡은 역할
+### 팀원
+ #### 강준우
+  - search -> category 별로 데이터가 저장되어 있기 때문에 category 별로 얼마를 썻는지 알려줄 수 있는 기능, sorting 금액순, 또는 월별로 보여주는 기능, 월별 총 지출이 얼마인지를 알려주는 기능 들 함수 구현 및 코드 에러 관리
+  - wiki page 제작
+  
+
+<br/>
+
+#### 김은택
+ - Create, Read, Update, Delete, Search, Save, Load 구현
+ - 해당 년도에 총 지출과 수입을 계산해주는 기능, 원화를 달러로 바꿔주는 프로그램 , 내가 가장 돈을 많이 쓴 카테고리를 알려주는 기능 들 구현 및 코드 에러 관리
+
