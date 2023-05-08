@@ -5,8 +5,8 @@
 
  ### ❤️ Welcome to 가계부 ❤️
 <img src="http://oss21700147.dothome.co.kr/img/c.svg"/> 
-<img src="http://oss21700147.dothome.co.kr/img/vs.png"/> 
-<img src="http://oss21700147.dothome.co.kr/img/markdown.png"/> 
+<img src="http://oss21700147.dothome.co.kr/img/vs.svg"/> 
+<img src="http://oss21700147.dothome.co.kr/img/markdown.svg"/> 
 
 
 </div>
