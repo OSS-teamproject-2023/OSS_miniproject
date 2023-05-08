@@ -42,14 +42,14 @@
 
 ## 🙈 팀소개 및 팀원이 맡은 역할
 ### 팀원
- #### 강준우
+ #### 강준우 https://github.com/JK-17
   - search -> category 별로 데이터가 저장되어 있기 때문에 category 별로 얼마를 썻는지 알려줄 수 있는 기능, sorting 금액순, 또는 월별로 보여주는 기능, 월별 총 지출이 얼마인지를 알려주는 기능 들 함수 구현 및 코드 에러 관리
   - wiki page 제작
   
 
 <br/>
 
-#### 김은택
+#### 김은택 https://github.com/euntaek98
  - Create, Read, Update, Delete, Search, Save, Load 구현
  - 해당 년도에 총 지출과 수입을 계산해주는 기능, 원화를 달러로 바꿔주는 프로그램 , 내가 가장 돈을 많이 쓴 카테고리를 알려주는 기능 들 구현 및 코드 에러 관리
 
