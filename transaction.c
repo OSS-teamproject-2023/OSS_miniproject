@@ -281,9 +281,9 @@ void mostSpendCategory(Transaction *t[], int count) {
         }
     }
 
-    // 상위 세 개의 카테고리 출력
+    // 상위 두 개의 카테고리 출력
     printf("가장 돈을 많이 쓴 카테고리 세 개:\n");
-    for (int i = 0; i < 3; i++) {
+    for (int i = 0; i < 2; i++) {
         int maxIndex = -1;
         int maxTotal = -1;
 
