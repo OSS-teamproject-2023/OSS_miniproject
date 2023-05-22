@@ -194,3 +194,53 @@ void exchageTransaction(Transaction *t[], int count) {
     }
     printf("==================================================\n");
 }
+
+
+void mostSpendCategory(Transaction *t[], int count) {
+    // 카테고리별 지출액 총합을 저장할 배열
+    int categoryTotal[MAX_SIZE] = {0};
+
+    // 각 카테고리별 지출액 총합 계산
+    for (int i = 0; i < count; i++) {
+        Transaction *transaction = t[i];
+        int categoryIndex = -1;
+
+        // 이미 계산된 카테고리인지 확인
+        for (int j = 0; j < i; j++) {
+            if (transaction->identify == -1 && ((t[j]->category, transaction->category) == 0)) {
+                categoryIndex = j;
+                break;
+            }
+        }
+
+        if (t[i]->identify == -1 && categoryIndex == -1) {
+            // 새로운 카테고리인 경우
+            strcpy(t[i]->category, transaction->category);
+            categoryTotal[i] = transaction->amount;
+        } else if(t[i]->identify == -1 && categoryIndex != -1) {
+            // 이미 계산된 카테고리인 경우
+            categoryTotal[categoryIndex] += transaction->amount;
+        }
+    }
+
+    // 상위 세 개의 카테고리 출력
+    printf("가장 돈을 많이 쓴 카테고리 세 개:\n");
+    for (int i = 0; i < 3; i++) {
+        int maxIndex = -1;
+        int maxTotal = -1;
+
+        // 최대 지출액을 가진 카테고리 찾기
+        for (int j = 0; j < count; j++) {
+            if (categoryTotal[j] > maxTotal) {
+                maxIndex = j;
+                maxTotal = categoryTotal[j];
+            }
+        }
+
+        // 최대 지출액 카테고리 출력
+        printf("%d. 카테고리: %s, 총 지출액: %d\n", i + 1, t[maxIndex]->category, maxTotal);
+
+        // 출력된 카테고리의 지출액 총합을 0으로 설정하여 다음으로 큰 값을 찾음
+        categoryTotal[maxIndex] = 0;
+    }
+}
