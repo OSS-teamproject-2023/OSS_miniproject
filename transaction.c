@@ -144,6 +144,31 @@ void searchTransaction(Transaction *t[], int count) {
 
 }
 
+void searchByCategory(Transaction *t[], int count) {
+    if (count == 0) {
+        printf("해당 내용이 없습니다.\n");
+        return;
+    }
+    char keyword[100];
+    printf("키워드를 입력하세요: ");
+    scanf("%s", keyword);
+    printf("==================================================\n");
+    printf("  날짜   | 카테고리 | 구분 | 금액 | 내용 \n");
+    printf("==================================================\n");
+    for (int i = 0; i < count; i++) {
+        if (strstr(t[i]->category, keyword)) {
+            if(t[i]->identify == 1) {
+                printf("%04d-%02d-%02d | 수입 | %-8s | %5d | %-11s \n", t[i]->year, t[i]->month, t[i]->day, t[i]->category, t[i]->amount, t[i]->description);
+            } else {
+                printf("%04d-%02d-%02d | 지출 | %-8s | %5d | %-11s \n", t[i]->year, t[i]->month, t[i]->day, t[i]->category, t[i]->amount, t[i]->description);
+
+            }
+        }
+    }
+    printf("==================================================\n");
+
+}
+
 
 void yearSummary(Transaction *t[], int count) {
     int totalExpense = 0;
