@@ -244,3 +244,26 @@ void mostSpendCategory(Transaction *t[], int count) {
         categoryTotal[maxIndex] = 0;
     }
 }
+void yearSummary(Transaction *t[], int count) {
+    int totalExpense = 0;
+    int totalIncome = 0;
+    int targetYear;
+    printf("연도를 입력하세요: ");
+    scanf("%d", &targetYear);
+
+
+    for (int i = 0; i < count; i++) {
+        if (t[i]->year == 2023) {
+            if (t[i]->identify == -1) {
+                // identify가 -1인 경우, 지출로 처리
+                totalExpense += t[i]->amount;
+            } else if (t[i]->identify == 1) {
+                // identify가 1인 경우, 수입으로 처리
+                totalIncome += t[i]->amount;
+            }
+        }
+    }
+
+    printf("%d년도의 총 지출: %d\n", targetYear, totalExpense);
+    printf("%d년도의 총 수입: %d\n", targetYear, totalIncome);
+}
