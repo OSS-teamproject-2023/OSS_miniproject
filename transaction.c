@@ -195,6 +195,38 @@ void exchageTransaction(Transaction *t[], int count) {
     printf("==================================================\n");
 }
 
+void swap(Transaction **a, Transaction **b) {
+    Transaction *temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+void amountSorting(Transaction *t[], int count) {
+    int i, j;
+
+    for (i = 0; i < count - 1; i++) {
+        for (j = 0; j < count - i - 1; j++) {
+            if (t[j]->amount > t[j + 1]->amount) {
+                swap(&t[j], &t[j + 1]);
+            }
+        }
+    }
+
+    printf("==================================================\n");
+    printf("  날짜  | 구분 | 카테고리 | 금액 | 내용 | \n");
+    printf("==================================================\n");
+    for (int i = 0; i < count; i++) {
+        if(t[i]->identify == 1) {
+            printf("%04d-%02d-%02d | 수입 | %-8s | %5d | %-11s \n", t[i]->year, t[i]->month, t[i]->day, t[i]->category, t[i]->amount, t[i]->description);
+        } else {
+            printf("%04d-%02d-%02d | 지출 | %-8s | %5d | %-11s \n", t[i]->year, t[i]->month, t[i]->day, t[i]->category, t[i]->amount, t[i]->description);
+
+        }
+    }
+    printf("==================================================\n");
+}
+
+
 
 void mostSpendCategory(Transaction *t[], int count) {
     // 카테고리별 지출액 총합을 저장할 배열
