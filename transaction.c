@@ -95,7 +95,7 @@ void saveTransaction(Transaction *t[], int count) {
 }
 
 int loadTransaction(Transaction *t[], int *count) {
-    FILE *fp = fopen("transactions.txt", "rw");
+    FILE *fp = fopen("transaction.txt", "rt");
     if (fp == NULL) {
         printf("파일 불러오기 실패!\n");
         return 0;
@@ -103,8 +103,15 @@ int loadTransaction(Transaction *t[], int *count) {
 
     int i = 0;
     while (!feof(fp)) {
-        int result = fscanf(fp, "%d %d %d %d %d %s\n", &t[i]->year, &t[i]->month, &t[i]->day, &t[i]->identify, &t[i]->amount, &t[i]->category, &t[i]->description);
-        if (result == EOF || result != 6) {
+	t[i] = (Transaction *)malloc(sizeof(Transaction));
+	if (t[i] == NULL) {
+            printf("메모리 할당 실패!\n");
+            fclose(fp);
+            return i; // 현재까지 성공적으로 읽은 트랜잭션 개수 반환
+        }
+        int result = fscanf(fp, "%d %d %d %d %d %s %s\n", &t[i]->year, &t[i]->month, &t[i]->day, &t[i]->identify, &t[i]->amount, t[i]->category, t[i]->description);
+        printf("%d\n", result);
+       	if (result == EOF || result != 7) {
             break;
         }
         i++;
@@ -112,7 +119,7 @@ int loadTransaction(Transaction *t[], int *count) {
     fclose(fp);
     *count = i;
 
-    printf("%d 파일 불러오기 성공!\n", *count);
+    printf("%d개의  파일 불러오기 성공!\n", *count);
     return *count;
 }
 
@@ -144,32 +151,7 @@ void searchTransaction(Transaction *t[], int count) {
 
 }
 
-
-void yearSummary(Transaction *t[], int count) {
-    int totalExpense = 0;
-    int totalIncome = 0;
-    int targetYear;
-    printf("연도를 입력하세요: ");
-    scanf("%d", &targetYear);
-
-
-    for (int i = 0; i < count; i++) {
-        if (t[i]->year == 2023) {
-            if (t[i]->identify == -1) {
-                // identify가 -1인 경우, 지출로 처리
-                totalExpense += t[i]->amount;
-            } else if (t[i]->identify == 1) {
-                // identify가 1인 경우, 수입으로 처리
-                totalIncome += t[i]->amount;
-            }
-        }
-    }
-
-    printf("%d년도의 총 지출: %d\n", targetYear, totalExpense);
-    printf("%d년도의 총 수입: %d\n", targetYear, totalIncome);
-}
-
-
+//
 double krw_to_usd(double krw) {
     double exchange_rate = 0.00088; // 1 USD = 1136.36 KRW
     return krw * exchange_rate;
@@ -184,11 +166,87 @@ void exchageTransaction(Transaction *t[], int count) {
     printf("  날짜   | 카테고리 | 구분 | 금액 | 내용 \n");
     printf("==================================================\n");
     for (int i = 0; i < count; i++) {
-        double usd = krw_to_usd(t[i]->amount);
+        int usd = krw_to_usd(t[i]->amount);
         if(t[i]->identify == 1) {
             printf("%04d-%02d-%02d | 수입 | %-8s | %5d | %-11s \n", t[i]->year, t[i]->month, t[i]->day, t[i]->category, usd, t[i]->description);
         } else {
             printf("%04d-%02d-%02d | 지출 | %-8s | %5d | %-11s \n", t[i]->year, t[i]->month, t[i]->day, t[i]->category, usd, t[i]->description);
+
+        }
+    }
+    printf("==================================================\n");
+}
+
+void monthlySpend(Transaction *t[], int count) {
+    int totalSpendByMonth[12] = {0};  // 월별 총 지출을 저장할 배열
+    int year;
+    printf("연도를 입력하세요: ");
+    scanf("%d", &year);
+    // 월별 지출 계산
+    for (int i = 0; i < count; i++) {
+        if(t[i]->year == year) {
+            totalSpendByMonth[t[i]->month - 1] += t[i]->amount;
+        }
+    }
+
+    // 결과 출력
+    printf("%d년도 월별 지출\n", year);
+    for (int i = 0; i < 12; i++) {
+        printf("월: %d, 총 지출: %d\n", i + 1, totalSpendByMonth[i]);
+    }
+}
+
+
+void searchByCategory(Transaction *t[], int count) {
+    if (count == 0) {
+        printf("해당 내용이 없습니다.\n");
+        return;
+    }
+    char keyword[100];
+    printf("키워드를 입력하세요: ");
+    scanf("%s", keyword);
+    printf("==================================================\n");
+    printf("  날짜   | 카테고리 | 구분 | 금액 | 내용 \n");
+    printf("==================================================\n");
+    for (int i = 0; i < count; i++) {
+        if (strstr(t[i]->category, keyword)) {
+            if(t[i]->identify == 1) {
+                printf("%04d-%02d-%02d | 수입 | %-8s | %5d | %-11s \n", t[i]->year, t[i]->month, t[i]->day, t[i]->category, t[i]->amount, t[i]->description);
+            } else {
+                printf("%04d-%02d-%02d | 지출 | %-8s | %5d | %-11s \n", t[i]->year, t[i]->month, t[i]->day, t[i]->category, t[i]->amount, t[i]->description);
+
+            }
+        }
+    }
+    printf("==================================================\n");
+
+}
+
+void swap(Transaction **a, Transaction **b) {
+    Transaction *temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+void amountSorting(Transaction *t[], int count) {
+    int i, j;
+
+    for (i = 0; i < count - 1; i++) {
+        for (j = 0; j < count - i - 1; j++) {
+            if (t[j]->amount > t[j + 1]->amount) {
+                swap(&t[j], &t[j + 1]);
+            }
+        }
+    }
+
+    printf("==================================================\n");
+    printf("  날짜  | 구분 | 카테고리 | 금액 | 내용 | \n");
+    printf("==================================================\n");
+    for (int i = 0; i < count; i++) {
+        if(t[i]->identify == 1) {
+            printf("%04d-%02d-%02d | 수입 | %-8s | %5d | %-11s \n", t[i]->year, t[i]->month, t[i]->day, t[i]->category, t[i]->amount, t[i]->description);
+        } else {
+            printf("%04d-%02d-%02d | 지출 | %-8s | %5d | %-11s \n", t[i]->year, t[i]->month, t[i]->day, t[i]->category, t[i]->amount, t[i]->description);
 
         }
     }
@@ -243,4 +301,30 @@ void mostSpendCategory(Transaction *t[], int count) {
         // 출력된 카테고리의 지출액 총합을 0으로 설정하여 다음으로 큰 값을 찾음
         categoryTotal[maxIndex] = 0;
     }
+}
+
+
+
+void yearSummary(Transaction *t[], int count) {
+    int totalExpense = 0;
+    int totalIncome = 0;
+    int targetYear;
+    printf("연도를 입력하세요: ");
+    scanf("%d", &targetYear);
+
+
+    for (int i = 0; i < count; i++) {
+        if (t[i]->year == 2023) {
+            if (t[i]->identify == -1) {
+                // identify가 -1인 경우, 지출로 처리
+                totalExpense += t[i]->amount;
+            } else if (t[i]->identify == 1) {
+                // identify가 1인 경우, 수입으로 처리
+                totalIncome += t[i]->amount;
+            }
+        }
+    }
+
+    printf("%d년도의 총 지출: %d\n", targetYear, totalExpense);
+    printf("%d년도의 총 수입: %d\n", targetYear, totalIncome);
 }

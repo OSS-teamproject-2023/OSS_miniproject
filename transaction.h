@@ -4,6 +4,7 @@ typedef struct {
     int year;
     int month;
     int day;
+    int identify;
     char category[MAX_SIZE];
     char description[MAX_SIZE];
     int amount;
