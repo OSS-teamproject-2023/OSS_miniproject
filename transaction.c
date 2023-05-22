@@ -179,20 +179,24 @@ void exchageTransaction(Transaction *t[], int count) {
 
 void monthlySpend(Transaction *t[], int count) {
     int totalSpendByMonth[12] = {0};  // 월별 총 지출을 저장할 배열
+    int totalIncomeByMonth[12] = {0};  // 월별 총 지출을 저장할 배열
     int year;
     printf("연도를 입력하세요: ");
     scanf("%d", &year);
     // 월별 지출 계산
     for (int i = 0; i < count; i++) {
-        if(t[i]->year == year) {
+        if(t[i]->identify == -1 && t[i]->year == year) {
             totalSpendByMonth[t[i]->month - 1] += t[i]->amount;
+        } else if (t[i]->identify == 1 && t[i]->year == year) {
+            totalIncomeByMonth[t[i]->month - 1] += t[i]->amount;
         }
     }
 
+
     // 결과 출력
-    printf("%d년도 월별 지출\n", year);
+    printf("%d년도 월별 지출 / 수입\n", year);
     for (int i = 0; i < 12; i++) {
-        printf("월: %d, 총 지출: %d\n", i + 1, totalSpendByMonth[i]);
+        printf("월: %d, 총 지출: %d, 총 수입: %d\n", i + 1, totalSpendByMonth[i], totalIncomeByMonth[i]);
     }
 }
 
