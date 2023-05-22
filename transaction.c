@@ -168,3 +168,29 @@ void yearSummary(Transaction *t[], int count) {
     printf("%d년도의 총 지출: %d\n", targetYear, totalExpense);
     printf("%d년도의 총 수입: %d\n", targetYear, totalIncome);
 }
+
+
+double krw_to_usd(double krw) {
+    double exchange_rate = 0.00088; // 1 USD = 1136.36 KRW
+    return krw * exchange_rate;
+}
+
+void exchageTransaction(Transaction *t[], int count) {
+    if (count == 0) {
+        printf("내용이 없습니다.\n");
+        return;
+    }
+    printf("==================================================\n");
+    printf("  날짜   | 카테고리 | 구분 | 금액 | 내용 \n");
+    printf("==================================================\n");
+    for (int i = 0; i < count; i++) {
+        double usd = krw_to_usd(t[i]->amount);
+        if(t[i]->identify == 1) {
+            printf("%04d-%02d-%02d | 수입 | %-8s | %5d | %-11s \n", t[i]->year, t[i]->month, t[i]->day, t[i]->category, usd, t[i]->description);
+        } else {
+            printf("%04d-%02d-%02d | 지출 | %-8s | %5d | %-11s \n", t[i]->year, t[i]->month, t[i]->day, t[i]->category, usd, t[i]->description);
+
+        }
+    }
+    printf("==================================================\n");
+}
