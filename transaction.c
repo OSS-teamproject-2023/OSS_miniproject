@@ -265,7 +265,7 @@ void mostSpendCategory(Transaction *t[], int count) {
 
         // 이미 계산된 카테고리인지 확인
         for (int j = 0; j < i; j++) {
-            if (transaction->identify == -1 && ((t[j]->category, transaction->category) == 0)) {
+            if (transaction->identify == -1 && (strcmp(t[j]->category, transaction->category) == 0)) {
                 categoryIndex = j;
                 break;
             }
@@ -282,8 +282,8 @@ void mostSpendCategory(Transaction *t[], int count) {
     }
 
     // 상위 세 개의 카테고리 출력
-    printf("가장 돈을 많이 쓴 카테고리 두 개:\n");
-    for (int i = 0; i < 2; i++) {
+    printf("가장 돈을 많이 쓴 카테고리 세 개:\n");
+    for (int i = 0; i < 3; i++) {
         int maxIndex = -1;
         int maxTotal = -1;
 
