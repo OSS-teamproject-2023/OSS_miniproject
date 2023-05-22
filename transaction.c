@@ -111,7 +111,6 @@ int loadTransaction(Transaction *t[], int *count) {
             return i; // 현재까지 성공적으로 읽은 트랜잭션 개수 반환
         }
         int result = fscanf(fp, "%d %d %d %d %d %s %s\n", &t[i]->year, &t[i]->month, &t[i]->day, &t[i]->identify, &t[i]->amount, t[i]->category, t[i]->description);
-        printf("%d\n", result);
        	if (result == EOF || result != 7) {
             break;
         }
